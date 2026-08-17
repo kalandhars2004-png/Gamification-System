@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gamification — Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Payment Gamification — Admin Panel</h1>
+        <p>Create, update and delete reward rules. Changes apply instantly — no code change.</p>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab-btn active" data-tab="cashback">Cashback Rules</button>
+        <button class="tab-btn" data-tab="services">Service Rules</button>
+        <button class="tab-btn" data-tab="goals">Goal Rules</button>
+        <button class="tab-btn" data-tab="config">Config</button>
+    </nav>
+
+    <main>
+        <section id="tab-cashback" class="tab-content active">
+            <div class="section-head">
+                <h2>Cashback Slab Rules</h2>
+                <button class="btn btn-primary" onclick="openForm('cashback')">+ Add Rule</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Min Amount</th>
+                        <th>Max Amount</th>
+                        <th>Cashback</th>
+                        <th>Reward Type</th>
+                        <th>Reward Value</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="cashback-body"></tbody>
+            </table>
+        </section>
+
+        <section id="tab-services" class="tab-content">
+            <div class="section-head">
+                <h2>Service Rules</h2>
+                <button class="btn btn-primary" onclick="openForm('services')">+ Add Service</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Service Type</th>
+                        <th>Percentage</th>
+                        <th>Max Cap</th>
+                        <th>Reward Type</th>
+                        <th>Reward Value</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="services-body"></tbody>
+            </table>
+        </section>
+
+        <section id="tab-goals" class="tab-content">
+            <div class="section-head">
+                <h2>Goal Rules</h2>
+                <button class="btn btn-primary" onclick="openForm('goals')">+ Add Goal</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Transactions</th>
+                        <th>Reward</th>
+                        <th>Reward Type</th>
+                        <th>Reward Value</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="goals-body"></tbody>
+            </table>
+        </section>
+
+        <section id="tab-config" class="tab-content">
+            <div class="section-head">
+                <h2>App Config</h2>
+                <p class="hint">Change business values at runtime (e.g. referral rewards).</p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Config Key</th>
+                        <th>Config Value</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="config-body"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <div id="modal" class="modal hidden">
+        <div class="modal-box">
+            <h3 id="modal-title">Add Rule</h3>
+            <form id="rule-form">
+                <input type="hidden" id="f-id">
+                <div id="form-fields"></div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="form-submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
