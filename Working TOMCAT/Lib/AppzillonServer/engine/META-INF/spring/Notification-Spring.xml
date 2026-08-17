@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans              http://www.springframework.org/schema/beans/spring-beans.xsd              http://www.springframework.org/schema/context               http://www.springframework.org/schema/context/spring-context-3.1.xsd                  http://www.springframework.org/schema/aop                http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+<bean class="com.iexceed.appzillon.notification.impl.DeviceNotificationImpl" id="engine_isender" scope="request">
+<property name="cAndroidSender">
+<ref bean="engine_androidSender"/>
+</property>
+<property name="cHauweiSender">
+<ref bean="engine_hauweiSender"/>
+</property>
+<property name="cWebSender">
+<ref bean="engine_webSender"/>
+</property>
+<property name="cIosSenderH2">
+<ref bean="engine_iosSenderH2"/>
+</property>
+<aop:scoped-proxy proxy-target-class="false"/>
+</bean>
+<bean class="com.iexceed.appzillon.notification.impl.AndroidNotificationSenderImpl" id="engine_androidSender" scope="request">
+<aop:scoped-proxy proxy-target-class="false"/>
+</bean>
+<bean class="com.iexceed.appzillon.notification.impl.HauweiNotificationSenderImpl" id="engine_hauweiSender" scope="request">
+<aop:scoped-proxy proxy-target-class="false"/>
+</bean>
+<bean class="com.iexceed.appzillon.notification.impl.GroupMaintainerImpl" id="engine_groupMaintainer" scope="request">
+<aop:scoped-proxy proxy-target-class="false"/>
+</bean>
+<bean class="com.iexceed.appzillon.notification.impl.FileServiceImpl" id="engine_fileService" scope="request">
+<aop:scoped-proxy proxy-target-class="false"/>
+</bean>
+<bean class="com.iexceed.appzillon.notification.impl.DeviceMaintainerImpl" id="engine_deviceMaintainer" scope="request">
+<aop:scoped-proxy proxy-target-class="false"/>
+</bean>
+<bean class="com.iexceed.appzillon.notification.impl.DeviceRegistrationImpl" id="engine_device" scope="request">
+<aop:scoped-proxy proxy-target-class="false"/>
+</bean>
+<bean class="com.iexceed.appzillon.notification.impl.MobileNumberNotificationImpl" id="engine_mobileNumberNotification" scope="request">
+<aop:scoped-proxy proxy-target-class="false"/>
+</bean>
+<bean class="com.iexceed.appzillon.notification.impl.MobileNumberNotificationImpl" id="engine_deviceIdNotification" scope="request">
+<aop:scoped-proxy proxy-target-class="false"/>
+</bean>
+<bean class="com.iexceed.appzillon.notification.impl.IosH2NotificationSenderImpl" id="engine_iosSenderH2" scope="request">
+<aop:scoped-proxy proxy-target-class="false"/>
+</bean>
+<bean class="com.iexceed.appzillon.notification.impl.WebNotificationSenderImpl" id="engine_webSender" scope="request">
+<aop:scoped-proxy proxy-target-class="false"/>
+</bean>
+<bean class="com.iexceed.appzillon.notification.handlers.DeviceNotificationRequestHandler" id="engine_deviceNotificationRequestHandler">
+<property name="cSender">
+<ref bean="engine_isender"/>
+</property>
+</bean>
+<bean class="com.iexceed.appzillon.notification.handlers.DeviceGroupRequestHandler" id="engine_deviceGroupRequestHandler">
+<property name="cGroupMaintainer">
+<ref bean="engine_groupMaintainer"/>
+</property>
+</bean>
+<bean class="com.iexceed.appzillon.notification.handlers.FileRequestHandler" id="engine_fileRequestHandler">
+<property name="cFileService">
+<ref bean="engine_fileService"/>
+</property>
+</bean>
+<bean class="com.iexceed.appzillon.notification.handlers.DeviceMaintainerRequestHandler" id="engine_deviceMaintainerRequestHandler">
+<property name="cDeviceMaintainer">
+<ref bean="engine_deviceMaintainer"/>
+</property>
+</bean>
+<bean class="com.iexceed.appzillon.notification.handlers.RegistrationRequestHandler" id="engine_registrationRequestHandler">
+<property name="cDevice">
+<ref bean="engine_device"/>
+</property>
+</bean>
+<bean class="com.iexceed.appzillon.notification.handlers.MobileNumberNotificationHandler" id="engine_mobileNumberNotificationDetail">
+<property name="cMobileNumNotification">
+<ref bean="engine_mobileNumberNotification"/>
+</property>
+</bean>
+<bean class="com.iexceed.appzillon.notification.handlers.MobileNumberNotificationHandler" id="engine_deviceNotificationDetail">
+<property name="cMobileNumNotification">
+<ref bean="engine_deviceIdNotification"/>
+</property>
+</bean>
+</beans>

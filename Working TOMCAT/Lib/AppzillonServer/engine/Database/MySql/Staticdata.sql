@@ -1,0 +1,918 @@
+/* App Details */
+DELETE FROM TB_ASMI_APP_OS_VERSION WHERE (APP_ID='engine'AND OS='WEB' );
+INSERT INTO TB_ASMI_APP_OS_VERSION (APP_ID,OS,APP_VERSION,CREATE_USER_ID,CREATE_TS,VERSION_NO)
+ VALUES('engine','WEB','1.0.0.0','Admin',NOW(),1);
+DELETE FROM TB_ASMI_APP_ID_VERSION WHERE (APP_ID='engine'AND OS='WEB' );
+INSERT INTO TB_ASMI_APP_ID_VERSION (APP_ID,OS,APP_ID_VERSION,CREATE_USER_ID,CREATE_TS,VERSION_NO)
+ VALUES('engine','WEB','1.0.0.0','Admin',NOW(),1);
+/* Admin Details */
+DELETE FROM TB_ASMI_SECURITY_PARAMETERS WHERE APP_ID='engine' AND CREATE_USER_ID='System';
+DROP PROCEDURE IF EXISTS `INSERT_SECURITY_PARAMETERS`;
+DELIMITER //
+CREATE PROCEDURE INSERT_SECURITY_PARAMETERS()
+BEGIN
+DECLARE CONTINUE HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+INSERT INTO TB_ASMI_SECURITY_PARAMETERS (APP_ID,MIN_NUM_NUM,MIN_NUM_SPCL_CHAR,MIN_NUM_UPPER_CASE_CHAR,MIN_NUM_LOWER_CASE_CHAR,MIN_LENGTH,MAX_LENGTH,PASS_CHANGE_FREQ,LAST_N_PASS_NOT_TO_USE,SESSION_TIMEOUT,NOOFFAILEDCOUNTS,CREATE_USER_ID,CREATE_TS,VERSION_NO,SERVER_TOKEN,FAIL_COUNT_TIMEOUT,PASSWORD_COUNT,DEFAULT_AUTHORIZATION,ALLOW_USER_PASSWORD_ENTRY,AUTO_APPROVE,PWD_COMM_CHANNEL,AUTH_STATUS,MULTIPLE_SESSION_ALLOWED,OTP_LENGTH,OTP_VALIDATION_COUNT,OTP_EXPIRY,OTP_RESEND,OTP_FORMAT,OTP_RESEND_COUNT,OTP_RESEND_LOCK_TIMEOUT,OTP_REGEN_COUNT,DATA_INTEGRITY,TXN_LOG_REQ,TXN_LOG_PAYLOAD,FMW_TXN_REQ,FMW_TXN_PAYLOAD, ACCESS_TOKEN_EXPIRY)
+ VALUES('engine',1,1,1,1,8,32,30,1,'300',5,'System',null,1,'ENGINE',5,5,'N','N','Y','BOTH','A','Y','6','5','600','N','numeric','3','300','0','N','N','NONE','N','NONE','1800');
+END
+//
+DELIMITER ;
+call INSERT_SECURITY_PARAMETERS();
+
+/*Internal Interface Generation Begin*/
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUploadFile' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUploadFile','engine','INTERNAL','INTERNAL','appzillonUploadFile','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUploadFile' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUploadFile','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUploadFileWS' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUploadFileWS','engine','INTERNAL','INTERNAL','appzillonUploadFileWS','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUploadFileWS' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUploadFileWS','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUploadFileAuth' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUploadFileAuth','engine','INTERNAL','INTERNAL','appzillonUploadFileAuth','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUploadFileAuth' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUploadFileAuth','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonFlushCacheReq' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonFlushCacheReq','engine','INTERNAL','INTERNAL','appzillonFlushCacheReq','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonFlushCacheReq' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonFlushCacheReq','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonAppUsageReport' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonAppUsageReport','engine','INTERNAL','INTERNAL','appzillonAppUsageReport','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonAppUsageReport' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonAppUsageReport','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCreateDevice' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCreateDevice','engine','INTERNAL','INTERNAL','appzillonCreateDevice','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCreateDevice' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCreateDevice','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCreateGroup' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCreateGroup','engine','INTERNAL','INTERNAL','appzillonCreateGroup','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCreateGroup' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCreateGroup','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCreateRoleMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCreateRoleMaster','engine','INTERNAL','INTERNAL','appzillonCreateRoleMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCreateRoleMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCreateRoleMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCreateScreen' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCreateScreen','engine','INTERNAL','INTERNAL','appzillonCreateScreen','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCreateScreen' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCreateScreen','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCreateUser' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCreateUser','engine','INTERNAL','INTERNAL','appzillonCreateUser','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCreateUser' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCreateUser','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUserAuthorization' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUserAuthorization','engine','INTERNAL','INTERNAL','appzillonUserAuthorization','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUserAuthorization' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUserAuthorization','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeleteDevice' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeleteDevice','engine','INTERNAL','INTERNAL','appzillonDeleteDevice','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeleteDevice' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeleteDevice','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeleteFile' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeleteFile','engine','INTERNAL','INTERNAL','appzillonDeleteFile','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeleteFile' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeleteFile','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeleteGroup' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeleteGroup','engine','INTERNAL','INTERNAL','appzillonDeleteGroup','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeleteGroup' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeleteGroup','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeleteScreen' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeleteScreen','engine','INTERNAL','INTERNAL','appzillonDeleteScreen','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeleteScreen' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeleteScreen','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonFilePushService' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonFilePushService','engine','INTERNAL','INTERNAL','appzillonFilePushService','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonFilePushService' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonFilePushService','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonFilePushServiceAuth' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonFilePushServiceAuth','engine','INTERNAL','INTERNAL','appzillonFilePushServiceAuth','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonFilePushServiceAuth' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonFilePushServiceAuth','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonFilePushServiceWS' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonFilePushServiceWS','engine','INTERNAL','INTERNAL','appzillonFilePushServiceWS','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonFilePushServiceWS' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonFilePushServiceWS','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetGroupDetail' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetGroupDetail','engine','INTERNAL','INTERNAL','appzillonGetGroupDetail','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetGroupDetail' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetGroupDetail','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetReqResp' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetReqResp','engine','INTERNAL','INTERNAL','appzillonGetReqResp','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetReqResp' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetReqResp','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonLoginReport' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonLoginReport','engine','INTERNAL','INTERNAL','appzillonLoginReport','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonLoginReport' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonLoginReport','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonNotificationAppDetail' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonNotificationAppDetail','engine','INTERNAL','INTERNAL','appzillonNotificationAppDetail','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonNotificationAppDetail' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonNotificationAppDetail','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonPushNotification' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonPushNotification','engine','INTERNAL','INTERNAL','appzillonPushNotification','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonPushNotification' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonPushNotification','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSearchDevice' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSearchDevice','engine','INTERNAL','INTERNAL','appzillonSearchDevice','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSearchDevice' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSearchDevice','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSearchFile' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSearchFile','engine','INTERNAL','INTERNAL','appzillonSearchFile','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSearchFile' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSearchFile','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSearchGroup' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSearchGroup','engine','INTERNAL','INTERNAL','appzillonSearchGroup','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSearchGroup' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSearchGroup','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSearchScreen' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSearchScreen','engine','INTERNAL','INTERNAL','appzillonSearchScreen','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSearchScreen' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSearchScreen','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSearchTxnLogging' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSearchTxnLogging','engine','INTERNAL','INTERNAL','appzillonSearchTxnLogging','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSearchTxnLogging' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSearchTxnLogging','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdateDevice' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdateDevice','engine','INTERNAL','INTERNAL','appzillonUpdateDevice','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdateDevice' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdateDevice','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdateGroup' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdateGroup','engine','INTERNAL','INTERNAL','appzillonUpdateGroup','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdateGroup' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdateGroup','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdateScreen' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdateScreen','engine','INTERNAL','INTERNAL','appzillonUpdateScreen','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdateScreen' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdateScreen','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDecrypt' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDecrypt','engine','INTERNAL','INTERNAL','appzillonDecrypt','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDecrypt' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDecrypt','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonLoggingRequest' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonLoggingRequest','engine','INTERNAL','INTERNAL','appzillonLoggingRequest','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonLoggingRequest' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonLoggingRequest','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonWorkflowDashboardQuery' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonWorkflowDashboardQuery','engine','INTERNAL','INTERNAL','appzillonWorkflowDashboardQuery','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonWorkflowDashboardQuery' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonWorkflowDashboardQuery','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonWorkflowPersist' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonWorkflowPersist','engine','INTERNAL','INTERNAL','appzillonWorkflowPersist','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonWorkflowPersist' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonWorkflowPersist','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonWorkflowQuery' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonWorkflowQuery','engine','INTERNAL','INTERNAL','appzillonWorkflowQuery','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonWorkflowQuery' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonWorkflowQuery','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonWorkflowQueryDb' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonWorkflowQueryDb','engine','INTERNAL','INTERNAL','appzillonWorkflowQueryDb','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonWorkflowQueryDb' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonWorkflowQueryDb','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonWorkflowQueryRequest' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonWorkflowQueryRequest','engine','INTERNAL','INTERNAL','appzillonWorkflowQueryRequest','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonWorkflowQueryRequest' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonWorkflowQueryRequest','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCreatePasswordRules' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCreatePasswordRules','engine','INTERNAL','INTERNAL','appzillonCreatePasswordRules','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCreatePasswordRules' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCreatePasswordRules','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeletePasswordRules' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeletePasswordRules','engine','INTERNAL','INTERNAL','appzillonDeletePasswordRules','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeletePasswordRules' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeletePasswordRules','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetPasswordRules' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetPasswordRules','engine','INTERNAL','INTERNAL','appzillonGetPasswordRules','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetPasswordRules' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetPasswordRules','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetPasswordByRules' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetPasswordByRules','engine','INTERNAL','INTERNAL','appzillonGetPasswordByRules','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetPasswordByRules' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetPasswordByRules','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdatePasswordRules' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdatePasswordRules','engine','INTERNAL','INTERNAL','appzillonUpdatePasswordRules','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdatePasswordRules' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdatePasswordRules','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdateUser' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdateUser','engine','INTERNAL','INTERNAL','appzillonUpdateUser','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdateUser' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdateUser','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeleteUser' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeleteUser','engine','INTERNAL','INTERNAL','appzillonDeleteUser','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeleteUser' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeleteUser','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSearchUser' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSearchUser','engine','INTERNAL','INTERNAL','appzillonSearchUser','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSearchUser' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSearchUser','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetRolesByAppIDUserID' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetRolesByAppIDUserID','engine','INTERNAL','INTERNAL','appzillonGetRolesByAppIDUserID','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetRolesByAppIDUserID' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetRolesByAppIDUserID','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetRolesByAppID' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetRolesByAppID','engine','INTERNAL','INTERNAL','appzillonGetRolesByAppID','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetRolesByAppID' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetRolesByAppID','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonPasswordReset' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonPasswordReset','engine','INTERNAL','INTERNAL','appzillonPasswordReset','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonPasswordReset' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonPasswordReset','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonForgotPassword' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonForgotPassword','engine','INTERNAL','INTERNAL','appzillonForgotPassword','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonForgotPassword' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonForgotPassword','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUnlockUser' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUnlockUser','engine','INTERNAL','INTERNAL','appzillonUnlockUser','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUnlockUser' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUnlockUser','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetUser' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetUser','engine','INTERNAL','INTERNAL','appzillonGetUser','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetUser' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetUser','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdateRoleMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdateRoleMaster','engine','INTERNAL','INTERNAL','appzillonUpdateRoleMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdateRoleMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdateRoleMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeleteRoleMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeleteRoleMaster','engine','INTERNAL','INTERNAL','appzillonDeleteRoleMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeleteRoleMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeleteRoleMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetRoleMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetRoleMaster','engine','INTERNAL','INTERNAL','appzillonGetRoleMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetRoleMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetRoleMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetScreensIntfByAppID' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetScreensIntfByAppID','engine','INTERNAL','INTERNAL','appzillonGetScreensIntfByAppID','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetScreensIntfByAppID' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetScreensIntfByAppID','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetIntfScrByAppIDRoleID' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetIntfScrByAppIDRoleID','engine','INTERNAL','INTERNAL','appzillonGetIntfScrByAppIDRoleID','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetIntfScrByAppIDRoleID' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetIntfScrByAppIDRoleID','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSearchIntfMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSearchIntfMaster','engine','INTERNAL','INTERNAL','appzillonSearchIntfMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSearchIntfMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSearchIntfMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCreateIntfMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCreateIntfMaster','engine','INTERNAL','INTERNAL','appzillonCreateIntfMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCreateIntfMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCreateIntfMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeleteIntfMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeleteIntfMaster','engine','INTERNAL','INTERNAL','appzillonDeleteIntfMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeleteIntfMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeleteIntfMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdateIntfMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdateIntfMaster','engine','INTERNAL','INTERNAL','appzillonUpdateIntfMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdateIntfMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdateIntfMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonPasswordValidate' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonPasswordValidate','engine','INTERNAL','INTERNAL','appzillonPasswordValidate','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonPasswordValidate' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonPasswordValidate','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'JMSRespFetchReq' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('JMSRespFetchReq','engine','INTERNAL','INTERNAL','JMSRespFetchReq','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='JMSRespFetchReq' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','JMSRespFetchReq','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonMessageStatistics' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonMessageStatistics','engine','INTERNAL','INTERNAL','appzillonMessageStatistics','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonMessageStatistics' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonMessageStatistics','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDashBoard' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDashBoard','engine','INTERNAL','INTERNAL','appzillonDashBoard','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDashBoard' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDashBoard','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonErrorLogging' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonErrorLogging','engine','INTERNAL','INTERNAL','appzillonErrorLogging','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonErrorLogging' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonErrorLogging','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'deviceStatus_Req' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('deviceStatus_Req','engine','INTERNAL','INTERNAL','deviceStatus_Req','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='deviceStatus_Req' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','deviceStatus_Req','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetChildAppDetails' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetChildAppDetails','engine','INTERNAL','INTERNAL','appzillonGetChildAppDetails','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetChildAppDetails' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetChildAppDetails','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCreateAppMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCreateAppMaster','engine','INTERNAL','INTERNAL','appzillonCreateAppMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCreateAppMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCreateAppMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdateAppMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdateAppMaster','engine','INTERNAL','INTERNAL','appzillonUpdateAppMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdateAppMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdateAppMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSearchAppMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSearchAppMaster','engine','INTERNAL','INTERNAL','appzillonSearchAppMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSearchAppMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSearchAppMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeleteAppMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeleteAppMaster','engine','INTERNAL','INTERNAL','appzillonDeleteAppMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeleteAppMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeleteAppMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCreateAppFile' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCreateAppFile','engine','INTERNAL','INTERNAL','appzillonCreateAppFile','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCreateAppFile' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCreateAppFile','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdateAppFile' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdateAppFile','engine','INTERNAL','INTERNAL','appzillonUpdateAppFile','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdateAppFile' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdateAppFile','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSearchAppFile' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSearchAppFile','engine','INTERNAL','INTERNAL','appzillonSearchAppFile','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSearchAppFile' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSearchAppFile','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeleteAppFile' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeleteAppFile','engine','INTERNAL','INTERNAL','appzillonDeleteAppFile','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeleteAppFile' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeleteAppFile','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSearchDeviceMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSearchDeviceMaster','engine','INTERNAL','INTERNAL','appzillonSearchDeviceMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSearchDeviceMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSearchDeviceMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeleteDeviceMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeleteDeviceMaster','engine','INTERNAL','INTERNAL','appzillonDeleteDeviceMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeleteDeviceMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeleteDeviceMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdateDeviceMaster' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdateDeviceMaster','engine','INTERNAL','INTERNAL','appzillonUpdateDeviceMaster','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdateDeviceMaster' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdateDeviceMaster','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'searchTaskRepair' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('searchTaskRepair','engine','INTERNAL','INTERNAL','searchTaskRepair','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='searchTaskRepair' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','searchTaskRepair','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'updateTaskRepair' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('updateTaskRepair','engine','INTERNAL','INTERNAL','updateTaskRepair','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='updateTaskRepair' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','updateTaskRepair','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonNotifyMobileNumber' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonNotifyMobileNumber','engine','INTERNAL','INTERNAL','appzillonNotifyMobileNumber','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonNotifyMobileNumber' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonNotifyMobileNumber','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonNotifyDevice' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonNotifyDevice','engine','INTERNAL','INTERNAL','appzillonNotifyDevice','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonNotifyDevice' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonNotifyDevice','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonInsertBeacon' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonInsertBeacon','engine','INTERNAL','INTERNAL','appzillonInsertBeacon','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonInsertBeacon' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonInsertBeacon','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonFetchBeaconDetails' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonFetchBeaconDetails','engine','INTERNAL','INTERNAL','appzillonFetchBeaconDetails','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonFetchBeaconDetails' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonFetchBeaconDetails','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdateBeaconDetails' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdateBeaconDetails','engine','INTERNAL','INTERNAL','appzillonUpdateBeaconDetails','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdateBeaconDetails' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdateBeaconDetails','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonFetchARDetails' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonFetchARDetails','engine','INTERNAL','INTERNAL','appzillonFetchARDetails','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonFetchARDetails' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonFetchARDetails','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonInsertDragDrop' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonInsertDragDrop','engine','INTERNAL','INTERNAL','appzillonInsertDragDrop','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonInsertDragDrop' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonInsertDragDrop','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUpdateDragDrop' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonUpdateDragDrop','engine','INTERNAL','INTERNAL','appzillonUpdateDragDrop','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUpdateDragDrop' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUpdateDragDrop','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeleteDragDrop' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeleteDragDrop','engine','INTERNAL','INTERNAL','appzillonDeleteDragDrop','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeleteDragDrop' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeleteDragDrop','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSearchDragDrop' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSearchDragDrop','engine','INTERNAL','INTERNAL','appzillonSearchDragDrop','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSearchDragDrop' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSearchDragDrop','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCustomer' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCustomer','engine','INTERNAL','INTERNAL','appzillonCustomer','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCustomer' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCustomer','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCustomerLocation' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCustomerLocation','engine','INTERNAL','INTERNAL','appzillonCustomerLocation','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCustomerLocation' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCustomerLocation','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCustomerDetails' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonCustomerDetails','engine','INTERNAL','INTERNAL','appzillonCustomerDetails','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCustomerDetails' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCustomerDetails','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeviceGrpQuery' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonDeviceGrpQuery','engine','INTERNAL','INTERNAL','appzillonDeviceGrpQuery','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeviceGrpQuery' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeviceGrpQuery','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonAppScreensQuery' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonAppScreensQuery','engine','INTERNAL','INTERNAL','appzillonAppScreensQuery','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonAppScreensQuery' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonAppScreensQuery','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSaveCustomizationData' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSaveCustomizationData','engine','INTERNAL','INTERNAL','appzillonSaveCustomizationData','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSaveCustomizationData' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSaveCustomizationData','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetCustomizerDetails' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetCustomizerDetails','engine','INTERNAL','INTERNAL','appzillonGetCustomizerDetails','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetCustomizerDetails' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetCustomizerDetails','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetQueryDesignerData' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonGetQueryDesignerData','engine','INTERNAL','INTERNAL','appzillonGetQueryDesignerData','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetQueryDesignerData' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetQueryDesignerData','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSaveAppAccess' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF ) values('appzillonSaveAppAccess','engine','INTERNAL','INTERNAL','create and update user app access','Y','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N',1,'');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSaveAppAccess' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSaveAppAccess','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonAuthenticationRequest' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonAuthenticationRequest','engine','INTERNAL','INTERNAL','appzillonAuthenticationRequest','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonAuthenticationRequest' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonAuthenticationRequest','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonChangePassword' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonChangePassword','engine','INTERNAL','INTERNAL','appzillonChangePassword','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonChangePassword' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonChangePassword','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonNotificationRegistration' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonNotificationRegistration','engine','INTERNAL','INTERNAL','appzillonNotificationRegistration','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonNotificationRegistration' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonNotificationRegistration','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonReLoginRequest' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonReLoginRequest','engine','INTERNAL','INTERNAL','appzillonReLoginRequest','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonReLoginRequest' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonReLoginRequest','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonAuditLog' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonAuditLog','engine','INTERNAL','INTERNAL','appzillonAuditLog','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonAuditLog' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonAuditLog','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonOTAFileDownloadReq' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonOTAFileDownloadReq','engine','INTERNAL','INTERNAL','appzillonOTAFileDownloadReq','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonOTAFileDownloadReq' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonOTAFileDownloadReq','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetAppFile' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonGetAppFile','engine','INTERNAL','INTERNAL','appzillonGetAppFile','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetAppFile' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetAppFile','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonMailRequest' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonMailRequest','engine','INTERNAL','INTERNAL','appzillonMailRequest','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonMailRequest' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonMailRequest','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUserRegistration' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonUserRegistration','engine','INTERNAL','INTERNAL','appzillonUserRegistration','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUserRegistration' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUserRegistration','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonInterfaceAuthRequest' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonInterfaceAuthRequest','engine','INTERNAL','INTERNAL','appzillonInterfaceAuthRequest','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonInterfaceAuthRequest' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonInterfaceAuthRequest','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonScreenAuthRequest' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonScreenAuthRequest','engine','INTERNAL','INTERNAL','appzillonScreenAuthRequest','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonScreenAuthRequest' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonScreenAuthRequest','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonFetchPrivilegeService' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonFetchPrivilegeService','engine','INTERNAL','INTERNAL','appzillonFetchPrivilegeService','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonFetchPrivilegeService' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonFetchPrivilegeService','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonLogoutRequest' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonLogoutRequest','engine','INTERNAL','INTERNAL','appzillonLogoutRequest','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonLogoutRequest' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonLogoutRequest','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonLOVReq' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonLOVReq','engine','INTERNAL','INTERNAL','appzillonLOVReq','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonLOVReq' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonLOVReq','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonValNProcessIface' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonValNProcessIface','engine','INTERNAL','INTERNAL','appzillonValNProcessIface','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonValNProcessIface' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonValNProcessIface','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonDeviceRegistration' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonDeviceRegistration','engine','INTERNAL','INTERNAL','appzillonDeviceRegistration','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonDeviceRegistration' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonDeviceRegistration','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUserDeviceRegistration' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonUserDeviceRegistration','engine','INTERNAL','INTERNAL','appzillonUserDeviceRegistration','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUserDeviceRegistration' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUserDeviceRegistration','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonValidateOTP' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonValidateOTP','engine','INTERNAL','INTERNAL','appzillonValidateOTP','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonValidateOTP' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonValidateOTP','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonReGenerateOtp' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonReGenerateOtp','engine','INTERNAL','INTERNAL','appzillonReGenerateOtp','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonReGenerateOtp' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonReGenerateOtp','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSendSMS' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonSendSMS','engine','INTERNAL','INTERNAL','appzillonSendSMS','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSendSMS' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSendSMS','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonScheduler' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonScheduler','engine','INTERNAL','INTERNAL','appzillonScheduler','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonScheduler' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonScheduler','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSmsLogTxn' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonSmsLogTxn','engine','INTERNAL','INTERNAL','appzillonSmsLogTxn','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSmsLogTxn' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSmsLogTxn','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonUssdLogTxn' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonUssdLogTxn','engine','INTERNAL','INTERNAL','appzillonUssdLogTxn','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonUssdLogTxn' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonUssdLogTxn','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonTxtMslgLog' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonTxtMslgLog','engine','INTERNAL','INTERNAL','appzillonTxtMslgLog','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonTxtMslgLog' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonTxtMslgLog','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonSmsUser' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonSmsUser','engine','INTERNAL','INTERNAL','appzillonSmsUser','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonSmsUser' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonSmsUser','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGenerateCaptcha' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonGenerateCaptcha','engine','INTERNAL','INTERNAL','appzillonGenerateCaptcha','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGenerateCaptcha' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGenerateCaptcha','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonTrackLocation' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonTrackLocation','engine','INTERNAL','INTERNAL','appzillonTrackLocation','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonTrackLocation' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonTrackLocation','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCheckServer' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonCheckServer','engine','INTERNAL','INTERNAL','appzillonCheckServer','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCheckServer' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCheckServer','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'getCnvUIWelcomeMsg' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('getCnvUIWelcomeMsg','engine','INTERNAL','INTERNAL','getCnvUIWelcomeMsg','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='getCnvUIWelcomeMsg' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','getCnvUIWelcomeMsg','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'getFirstCnvUIDlg' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('getFirstCnvUIDlg','engine','INTERNAL','INTERNAL','getFirstCnvUIDlg','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='getFirstCnvUIDlg' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','getFirstCnvUIDlg','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'getCnvUIDlg' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('getCnvUIDlg','engine','INTERNAL','INTERNAL','getCnvUIDlg','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='getCnvUIDlg' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','getCnvUIDlg','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'processNLPData' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('processNLPData','engine','INTERNAL','INTERNAL','processNLPData','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='processNLPData' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','processNLPData','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetIntfDef' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonGetIntfDef','engine','INTERNAL','INTERNAL','appzillonGetIntfDef','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetIntfDef' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetIntfDef','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetAppMasterDetails' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonGetAppMasterDetails','engine','INTERNAL','INTERNAL','appzillonGetAppMasterDetails','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetAppMasterDetails' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetAppMasterDetails','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetAppSecTokens' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonGetAppSecTokens','engine','INTERNAL','INTERNAL','appzillonGetAppSecTokens','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetAppSecTokens' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetAppSecTokens','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'workflowAcquire' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('workflowAcquire','engine','INTERNAL','INTERNAL','workflowAcquire','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='workflowAcquire' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','workflowAcquire','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'workflowAssign' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('workflowAssign','engine','INTERNAL','INTERNAL','workflowAssign','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='workflowAssign' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','workflowAssign','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'workflowUnassign' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('workflowUnassign','engine','INTERNAL','INTERNAL','workflowUnassign','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='workflowUnassign' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','workflowUnassign','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'workflowQuery' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('workflowQuery','engine','INTERNAL','INTERNAL','workflowQuery','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='workflowQuery' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','workflowQuery','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'workflowReassign' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('workflowReassign','engine','INTERNAL','INTERNAL','workflowReassign','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='workflowReassign' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','workflowReassign','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'workflowSave' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('workflowSave','engine','INTERNAL','INTERNAL','workflowSave','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='workflowSave' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','workflowSave','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'workflowStart' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('workflowStart','engine','INTERNAL','INTERNAL','workflowStart','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='workflowStart' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','workflowStart','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'workflowTerminate' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('workflowTerminate','engine','INTERNAL','INTERNAL','workflowTerminate','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='workflowTerminate' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','workflowTerminate','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'workflowNext' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('workflowNext','engine','INTERNAL','INTERNAL','workflowNext','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='workflowNext' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','workflowNext','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'workflowPrev' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('workflowPrev','engine','INTERNAL','INTERNAL','workflowPrev','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='workflowPrev' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','workflowPrev','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonGetUserAppAccessToken' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonGetUserAppAccessToken','engine','INTERNAL','INTERNAL','appzillonGetUserAppAccessToken','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonGetUserAppAccessToken' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonGetUserAppAccessToken','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonReloadLogger' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonReloadLogger','engine','INTERNAL','INTERNAL','appzillonReloadLogger','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonReloadLogger' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonReloadLogger','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'apzParseMetaJSON' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('apzParseMetaJSON','engine','INTERNAL','INTERNAL','apzParseMetaJSON','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='apzParseMetaJSON' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','apzParseMetaJSON','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'apzParseProductJSON' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('apzParseProductJSON','engine','INTERNAL','INTERNAL','apzParseProductJSON','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='apzParseProductJSON' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','apzParseProductJSON','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'apzParseWidgetJSON' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('apzParseWidgetJSON','engine','INTERNAL','INTERNAL','apzParseWidgetJSON','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='apzParseWidgetJSON' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','apzParseWidgetJSON','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'apzPersistHTMLInfo' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('apzPersistHTMLInfo','engine','INTERNAL','INTERNAL','apzPersistHTMLInfo','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='apzPersistHTMLInfo' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','apzPersistHTMLInfo','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonCreateTenant' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonCreateTenant','engine','INTERNAL','INTERNAL','appzillonCreateTenant','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonCreateTenant' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonCreateTenant','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'reloadServerProperties' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('reloadServerProperties','engine','INTERNAL','INTERNAL','reloadServerProperties','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='reloadServerProperties' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','reloadServerProperties','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'reloadEnvProperties' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('reloadEnvProperties','engine','INTERNAL','INTERNAL','reloadEnvProperties','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='reloadEnvProperties' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','reloadEnvProperties','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'appzillonOnAppLaunch' AND APP_ID='engine');
+insert into TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION, AUTHRZ_REQ, CREATE_USER_ID,CREATE_TS, MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS , AUTH_STATUS,CAPTCHA_REQ, VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,DG_TXN_LOG_REQ) values('appzillonOnAppLaunch','engine','INTERNAL','INTERNAL','appzillonOnAppLaunch','N','Admin',NOW(), 'admin' , NOW(), 'admin' , NOW(), 'A','N' ,1,'','N','N','N');
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='appzillonOnAppLaunch' AND ROLE_ID='admin' );
+insert  into TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) values('engine','admin','appzillonOnAppLaunch','Admin',NOW(),1);
+
+/*Internal Interface Generation End*/
+DELETE FROM TB_ASMI_USER_APP_ACCESS WHERE (APP_ID='engine' AND USER_ID='admin');
+	insert into TB_ASMI_USER_APP_ACCESS (USER_ID, APP_ID, ALLOWED_APP_ID,APP_ACCESS, CREATE_USER_ID, CREATE_TS) VALUES ('admin', 'engine','engine', 'A', 'admin', NOW());
+
+DELETE FROM TB_ASMI_APP_MASTER WHERE (APP_ID='engine');
+INSERT INTO TB_ASMI_APP_MASTER (APP_ID,PARENT_APPID,CONTAINER_APP,OTA_REQ,REMOTE_DEBUG,EXPIRY_DATE,APP_DESCRIPTION,DEFAULT_LANGUAGE,CREATE_USER_ID,CREATE_TS,VERSION_NO,MAKER_TS,MAKER_ID,CHECKER_ID,CHECKER_TS,AUTH_STATUS,APP_NAME,MICRO_APP_TYPE,APP_ICON,APP_VERSION,IDE_VERSION)
+ VALUES('engine','','N','N','N',STR_TO_DATE('18/01/2038','%d/%m/%Y %h:%i%s'),'engine','en','Admin',NOW(),'1',NOW(),'admin','admin',NOW(),'A','engine','INTERNAL','appicon.png','1.0.0.0','3.37.0.03082023');
+DELETE FROM TB_ASMI_USER WHERE (APP_ID='engine' AND USER_ID='admin');
+INSERT INTO TB_ASMI_USER (USER_ID, APP_ID, PIN, USER_NAME,LOGIN_STATUS, FAIL_COUNT, USER_ACTIVE, USER_LOCKED,LANGUAGE,EXTERNALIDENTIFIER,USER_ADDR1, USER_ADDR2, USER_ADDR3, USER_ADDR4, USER_EML1, USER_EML2, USER_PHNO1, USER_PHNO2, USER_LVL, CREATE_USER_ID, CREATE_TS, VERSION_NO,USER_LOCK_TS,PIN_CHANGE_TS,AUTH_STATUS,MAKER_ID) VALUES('admin','engine','d25d9dd2ebb97172ef017cddd3da946301d82b2bb9a115f5681b8c5852dcd08e','admin','Y',1,'Y','N','en',null,'','','','','','','','',1,'Admin',NOW(),1,NOW(),NOW(),'A','admin');
+
+DELETE FROM TB_ASMI_USER_DEVICES WHERE (APP_ID='engine' AND USER_ID='admin' AND DEVICE_ID='SIMULATOR');
+INSERT INTO TB_ASMI_USER_DEVICES(APP_ID,DEVICE_ID, USER_ID,DEVICE_STATUS,CREATE_USER_ID,CREATE_TS,VERSION_NO,AUTH_STATUS) VALUES('engine','SIMULATOR','admin','ACTIVE','Admin',NOW(),'1','A');
+
+DELETE FROM TB_ASMI_USER_ROLE WHERE (APP_ID='engine' AND USER_ID='admin' AND ROLE_ID='admin');
+INSERT INTO TB_ASMI_USER_ROLE(USER_ID,ROLE_ID, APP_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('admin','admin','engine','Admin',NOW(),'1');
+
+DELETE FROM TB_ASMI_USER_DEVICES WHERE (APP_ID='engine' AND USER_ID='admin' AND DEVICE_ID='WEB');
+INSERT INTO TB_ASMI_USER_DEVICES(APP_ID,DEVICE_ID, USER_ID,DEVICE_STATUS,CREATE_USER_ID,CREATE_TS,VERSION_NO,AUTH_STATUS) VALUES('engine','WEB','admin','ACTIVE','Admin',NOW(),'1','A');
+
+DELETE FROM TB_ASMI_USER_APP_ACCESS WHERE (APP_ID='engine' AND USER_ID='adminauth');
+	insert into TB_ASMI_USER_APP_ACCESS (USER_ID, APP_ID, ALLOWED_APP_ID,APP_ACCESS, CREATE_USER_ID, CREATE_TS) VALUES ('adminauth', 'engine','engine', 'A', 'admin', NOW());
+
+DELETE FROM TB_ASMI_APP_MASTER WHERE (APP_ID='engine');
+INSERT INTO TB_ASMI_APP_MASTER (APP_ID,PARENT_APPID,CONTAINER_APP,OTA_REQ,REMOTE_DEBUG,EXPIRY_DATE,APP_DESCRIPTION,DEFAULT_LANGUAGE,CREATE_USER_ID,CREATE_TS,VERSION_NO,MAKER_TS,MAKER_ID,CHECKER_ID,CHECKER_TS,AUTH_STATUS,APP_NAME,MICRO_APP_TYPE,APP_ICON,APP_VERSION,IDE_VERSION)
+ VALUES('engine','','N','N','N',STR_TO_DATE('18/01/2038','%d/%m/%Y %h:%i%s'),'engine','en','Admin',NOW(),'1',NOW(),'admin','admin',NOW(),'A','engine','INTERNAL','appicon.png','1.0.0.0','3.37.0.03082023');
+DELETE FROM TB_ASMI_USER WHERE (APP_ID='engine' AND USER_ID='adminauth');
+INSERT INTO TB_ASMI_USER (USER_ID, APP_ID, PIN, USER_NAME,LOGIN_STATUS, FAIL_COUNT, USER_ACTIVE, USER_LOCKED,LANGUAGE,EXTERNALIDENTIFIER,USER_ADDR1, USER_ADDR2, USER_ADDR3, USER_ADDR4, USER_EML1, USER_EML2, USER_PHNO1, USER_PHNO2, USER_LVL, CREATE_USER_ID, CREATE_TS, VERSION_NO,USER_LOCK_TS,PIN_CHANGE_TS,AUTH_STATUS,MAKER_ID) VALUES('adminauth','engine','8f7b109994c09f4b0f2ffd654f4d1312c89aa274bd0c2be7cca7eb69c9402e0f','admin','Y',1,'Y','N','en',null,'','','','','','','','',1,'Admin',NOW(),1,NOW(),NOW(),'A','adminauth');
+
+DELETE FROM TB_ASMI_USER_DEVICES WHERE (APP_ID='engine' AND USER_ID='adminauth' AND DEVICE_ID='SIMULATOR');
+INSERT INTO TB_ASMI_USER_DEVICES(APP_ID,DEVICE_ID, USER_ID,DEVICE_STATUS,CREATE_USER_ID,CREATE_TS,VERSION_NO,AUTH_STATUS) VALUES('engine','SIMULATOR','adminauth','ACTIVE','Admin',NOW(),'1','A');
+
+DELETE FROM TB_ASMI_USER_ROLE WHERE (APP_ID='engine' AND USER_ID='adminauth' AND ROLE_ID='admin');
+INSERT INTO TB_ASMI_USER_ROLE(USER_ID,ROLE_ID, APP_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('adminauth','admin','engine','Admin',NOW(),'1');
+
+DELETE FROM TB_ASMI_USER_DEVICES WHERE (APP_ID='engine' AND USER_ID='adminauth' AND DEVICE_ID='WEB');
+INSERT INTO TB_ASMI_USER_DEVICES(APP_ID,DEVICE_ID, USER_ID,DEVICE_STATUS,CREATE_USER_ID,CREATE_TS,VERSION_NO,AUTH_STATUS) VALUES('engine','WEB','adminauth','ACTIVE','Admin',NOW(),'1','A');
+
+/* Screens */
+DELETE FROM TB_ASMI_SCR_MASTER WHERE (SCREEN_ID = 'engine__CreateT' AND APP_ID='engine');
+INSERT INTO TB_ASMI_SCR_MASTER(SCREEN_ID,APP_ID,SCREEN_DESC,CREATE_USER_ID,CREATE_TS,VERSION_NO,MAKER_ID,MAKER_TS,CHECKER_ID,CHECKER_TS,AUTH_STATUS,SCREEN_TYPE,SCREEN_NAME,SCREEN_ICON,CUSTOMISABLE) VALUES('engine__CreateT','engine','New Screen','Admin',NOW(),1,'admin',NOW(),'admin',NOW(),'A','MAIN','CreateT','','N');
+
+DELETE FROM TB_ASMI_SCR_MASTER WHERE (SCREEN_ID = 'engine__Home' AND APP_ID='engine');
+INSERT INTO TB_ASMI_SCR_MASTER(SCREEN_ID,APP_ID,SCREEN_DESC,CREATE_USER_ID,CREATE_TS,VERSION_NO,MAKER_ID,MAKER_TS,CHECKER_ID,CHECKER_TS,AUTH_STATUS,SCREEN_TYPE,SCREEN_NAME,SCREEN_ICON,CUSTOMISABLE) VALUES('engine__Home','engine','New Screen','Admin',NOW(),1,'admin',NOW(),'admin',NOW(),'A','MAIN','Home','','N');
+
+DELETE FROM TB_ASMI_SCR_MASTER WHERE (SCREEN_ID = 'engine__Login' AND APP_ID='engine');
+INSERT INTO TB_ASMI_SCR_MASTER(SCREEN_ID,APP_ID,SCREEN_DESC,CREATE_USER_ID,CREATE_TS,VERSION_NO,MAKER_ID,MAKER_TS,CHECKER_ID,CHECKER_TS,AUTH_STATUS,SCREEN_TYPE,SCREEN_NAME,SCREEN_ICON,CUSTOMISABLE) VALUES('engine__Login','engine','New Screen','Admin',NOW(),1,'admin',NOW(),'admin',NOW(),'A','MAIN','Login','','N');
+
+DELETE FROM TB_ASMI_SCR_MASTER WHERE (SCREEN_ID = 'engine__Register' AND APP_ID='engine');
+INSERT INTO TB_ASMI_SCR_MASTER(SCREEN_ID,APP_ID,SCREEN_DESC,CREATE_USER_ID,CREATE_TS,VERSION_NO,MAKER_ID,MAKER_TS,CHECKER_ID,CHECKER_TS,AUTH_STATUS,SCREEN_TYPE,SCREEN_NAME,SCREEN_ICON,CUSTOMISABLE) VALUES('engine__Register','engine','New Screen','Admin',NOW(),1,'admin',NOW(),'admin',NOW(),'A','MAIN','Register','','N');
+
+DELETE FROM TB_ASMI_SCR_MASTER WHERE (SCREEN_ID = 'engine__Reward' AND APP_ID='engine');
+INSERT INTO TB_ASMI_SCR_MASTER(SCREEN_ID,APP_ID,SCREEN_DESC,CREATE_USER_ID,CREATE_TS,VERSION_NO,MAKER_ID,MAKER_TS,CHECKER_ID,CHECKER_TS,AUTH_STATUS,SCREEN_TYPE,SCREEN_NAME,SCREEN_ICON,CUSTOMISABLE) VALUES('engine__Reward','engine','New Screen','Admin',NOW(),1,'admin',NOW(),'admin',NOW(),'A','MAIN','Reward','','N');
+
+/* ScreenWidgets */
+DELETE FROM TB_ASMI_SCREEN_WIDGETS WHERE (SCREEN_ID = 'engine__CreateT' AND APP_ID='engine' AND CALLFORM_ID='engine__CreateT');
+INSERT INTO TB_ASMI_SCREEN_WIDGETS(APP_ID,SCREEN_ID,CALLFORM_ID,CREATE_TS) VALUES('engine','engine__CreateT','engine__CreateT',NOW());
+
+DELETE FROM TB_ASMI_SCREEN_WIDGETS WHERE (SCREEN_ID = 'engine__Home' AND APP_ID='engine' AND CALLFORM_ID='engine__Home');
+INSERT INTO TB_ASMI_SCREEN_WIDGETS(APP_ID,SCREEN_ID,CALLFORM_ID,CREATE_TS) VALUES('engine','engine__Home','engine__Home',NOW());
+
+DELETE FROM TB_ASMI_SCREEN_WIDGETS WHERE (SCREEN_ID = 'engine__Login' AND APP_ID='engine' AND CALLFORM_ID='engine__Login');
+INSERT INTO TB_ASMI_SCREEN_WIDGETS(APP_ID,SCREEN_ID,CALLFORM_ID,CREATE_TS) VALUES('engine','engine__Login','engine__Login',NOW());
+
+DELETE FROM TB_ASMI_SCREEN_WIDGETS WHERE (SCREEN_ID = 'engine__Register' AND APP_ID='engine' AND CALLFORM_ID='engine__Register');
+INSERT INTO TB_ASMI_SCREEN_WIDGETS(APP_ID,SCREEN_ID,CALLFORM_ID,CREATE_TS) VALUES('engine','engine__Register','engine__Register',NOW());
+
+DELETE FROM TB_ASMI_SCREEN_WIDGETS WHERE (SCREEN_ID = 'engine__Reward' AND APP_ID='engine' AND CALLFORM_ID='engine__Reward');
+INSERT INTO TB_ASMI_SCREEN_WIDGETS(APP_ID,SCREEN_ID,CALLFORM_ID,CREATE_TS) VALUES('engine','engine__Reward','engine__Reward',NOW());
+
+/* Interfaces */
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'engine__CreateT' AND APP_ID='engine');
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'engine__GetGoal' AND APP_ID='engine');
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'engine__GetReward' AND APP_ID='engine');
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'engine__GetUser' AND APP_ID='engine');
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'engine__Login' AND APP_ID='engine');
+DELETE FROM TB_ASMI_INTF_MASTER WHERE (INTERFACE_ID = 'engine__Register' AND APP_ID='engine');
+INSERT INTO TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION,AUTHRZ_REQ,CREATE_USER_ID,CREATE_TS,MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS ,AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,FMW_TXN_REQ,FMW_TXN_PAYLOAD_REQ) VALUES('engine__CreateT','engine','EXTERNAL','HTTP','CreateT','Y','Admin',NOW(),'admin',NOW(),'admin',NOW(),'A','N','1','{\"name\":\"engine__CreateT\",\"type\":\"HTTP\",\"offline\":\"N\",\"session\":\"N\",\"correctReq\":\"N\",\"noOfReqNodes\":1,\"correctRes\":\"N\",\"noOfResNodes\":1,\"noOFaultNodes\":1,\"nodes\":[\"engine__CreateT_Req\",\"engine__CreateT_Res\",\"engine__CreateT_Flt\"],\"noOfNodeElms\":[4,0,0],\"nExtName\":[\"engine__CreateT_Req\",\"engine__CreateT_Res\",\"engine__CreateT_Flt\"],\"nMultiRec\":[\"N\",\"N\",\"N\"],\"nParent\":[\"\",\"\",\"\"],\"nParents\":[\"\",\"\",\"\"],\"nChilds\":[\"\",\"\",\"\"],\"nRelType\":[\"1:1\",\"1:1\",\"1:1\"],\"nMrParent\":[\"engine__CreateT_Req\",\"engine__CreateT_Res\",\"engine__CreateT_Flt\"],\"elms\":[\"userId\",\"amount\",\"type\",\"toUserId\"],\"eExtName\":[\"userId\",\"amount\",\"type\",\"toUserId\"],\"eDataType\":[\"INTEGER\",\"INTEGER\",\"STRING\",\"INTEGER\"],\"eMinVal\":[\"\",\"\",\"\",\"\"],\"eMaxVal\":[\"\",\"\",\"\",\"\"],\"eMaxDec\":[\"\",\"\",\"\",\"\"],\"eLenType\":[\"F\",\"F\",\"F\",\"F\"],\"eMinLen\":[\"\",\"\",\"\",\"\"],\"eMaxLen\":[\"\",\"\",\"\",\"\"],\"eArr\":[\"N\",\"N\",\"N\",\"N\"],\"ePattern\":[\"\",\"\",\"\",\"\"],\"eMand\":[\"N\",\"N\",\"N\",\"N\"],\"eRelNode\":[\"\",\"\",\"\",\"\"],\"eRelElm\":[\"\",\"\",\"\",\"\"]}','N','NONE','N','NONE');
+INSERT INTO TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION,AUTHRZ_REQ,CREATE_USER_ID,CREATE_TS,MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS ,AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,FMW_TXN_REQ,FMW_TXN_PAYLOAD_REQ) VALUES('engine__GetGoal','engine','EXTERNAL','HTTP','GetGoal','Y','Admin',NOW(),'admin',NOW(),'admin',NOW(),'A','N','1','{\"name\":\"engine__GetGoal\",\"type\":\"HTTP\",\"offline\":\"N\",\"session\":\"N\",\"correctReq\":\"N\",\"noOfReqNodes\":1,\"correctRes\":\"N\",\"noOfResNodes\":1,\"noOFaultNodes\":1,\"nodes\":[\"engine__GetGoal_Req\",\"engine__GetGoal_Res\",\"engine__GetGoal_Flt\"],\"noOfNodeElms\":[1,5,0],\"nExtName\":[\"engine__GetGoal_Req\",\"engine__GetGoal_Res\",\"engine__GetGoal_Flt\"],\"nMultiRec\":[\"N\",\"N\",\"N\"],\"nParent\":[\"\",\"\",\"\"],\"nParents\":[\"\",\"\",\"\"],\"nChilds\":[\"\",\"\",\"\"],\"nRelType\":[\"1:1\",\"1:1\",\"1:1\"],\"nMrParent\":[\"engine__GetGoal_Req\",\"engine__GetGoal_Res\",\"engine__GetGoal_Flt\"],\"elms\":[\"userId\",\"userId\",\"totalTransactions\",\"nextGoal\",\"nextReward\",\"progress\"],\"eExtName\":[\"NewElement\",\"userId\",\"totalTransactions\",\"nextGoal\",\"nextReward\",\"progress\"],\"eDataType\":[\"STRING\",\"INTEGER\",\"INTEGER\",\"STRING\",\"NUMBER\",\"STRING\"],\"eMinVal\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxVal\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxDec\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eLenType\":[\"F\",\"F\",\"F\",\"F\",\"F\",\"F\"],\"eMinLen\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxLen\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eArr\":[\"N\",\"N\",\"N\",\"N\",\"N\",\"N\"],\"ePattern\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eMand\":[\"N\",\"N\",\"N\",\"N\",\"N\",\"N\"],\"eRelNode\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eRelElm\":[\"\",\"\",\"\",\"\",\"\",\"\"]}','Y','NONE','Y','NONE');
+INSERT INTO TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION,AUTHRZ_REQ,CREATE_USER_ID,CREATE_TS,MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS ,AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,FMW_TXN_REQ,FMW_TXN_PAYLOAD_REQ) VALUES('engine__GetReward','engine','EXTERNAL','HTTP','GetReward','Y','Admin',NOW(),'admin',NOW(),'admin',NOW(),'A','N','1','{\"name\":\"engine__GetReward\",\"type\":\"HTTP\",\"offline\":\"N\",\"session\":\"N\",\"correctReq\":\"N\",\"noOfReqNodes\":1,\"correctRes\":\"N\",\"noOfResNodes\":1,\"noOFaultNodes\":1,\"nodes\":[\"engine__GetReward_Req\",\"engine__GetReward_Res\",\"engine__GetReward_Flt\"],\"noOfNodeElms\":[1,8,0],\"nExtName\":[\"engine__GetReward_Req\",\"engine__GetReward_Res\",\"engine__GetReward_Flt\"],\"nMultiRec\":[\"N\",\"Y\",\"N\"],\"nParent\":[\"\",\"\",\"\"],\"nParents\":[\"\",\"\",\"\"],\"nChilds\":[\"\",\"\",\"\"],\"nRelType\":[\"1:1\",\"1:N\",\"1:1\"],\"nMrParent\":[\"engine__GetReward_Req\",\"engine__GetReward_Res\",\"engine__GetReward_Flt\"],\"elms\":[\"userId\",\"id\",\"userId\",\"rewardType\",\"rewardValue\",\"source\",\"amount\",\"transactionId\",\"date\"],\"eExtName\":[\"NewElement\",\"id\",\"userId\",\"rewardType\",\"rewardValue\",\"source\",\"amount\",\"transactionId\",\"date\"],\"eDataType\":[\"STRING\",\"INTEGER\",\"INTEGER\",\"STRING\",\"STRING\",\"STRING\",\"NUMBER\",\"INTEGER\",\"STRING\"],\"eMinVal\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxVal\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxDec\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eLenType\":[\"F\",\"F\",\"F\",\"F\",\"F\",\"F\",\"F\",\"F\",\"F\"],\"eMinLen\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxLen\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eArr\":[\"N\",\"N\",\"N\",\"N\",\"N\",\"N\",\"N\",\"N\",\"N\"],\"ePattern\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eMand\":[\"N\",\"N\",\"N\",\"N\",\"N\",\"N\",\"N\",\"N\",\"N\"],\"eRelNode\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eRelElm\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]}','Y','NONE','Y','NONE');
+INSERT INTO TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION,AUTHRZ_REQ,CREATE_USER_ID,CREATE_TS,MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS ,AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,FMW_TXN_REQ,FMW_TXN_PAYLOAD_REQ) VALUES('engine__GetUser','engine','EXTERNAL','HTTP','GetUser','Y','Admin',NOW(),'admin',NOW(),'admin',NOW(),'A','N','1','{\"name\":\"engine__GetUser\",\"type\":\"HTTP\",\"offline\":\"N\",\"session\":\"N\",\"correctReq\":\"N\",\"noOfReqNodes\":1,\"correctRes\":\"N\",\"noOfResNodes\":1,\"noOFaultNodes\":1,\"nodes\":[\"engine__GetUser_Req\",\"engine__GetUser_Res\",\"engine__GetUser_Flt\"],\"noOfNodeElms\":[1,7,0],\"nExtName\":[\"engine__GetUser_Req\",\"engine__GetUser_Res\",\"engine__GetUser_Flt\"],\"nMultiRec\":[\"N\",\"N\",\"N\"],\"nParent\":[\"\",\"\",\"\"],\"nParents\":[\"\",\"\",\"\"],\"nChilds\":[\"\",\"\",\"\"],\"nRelType\":[\"1:1\",\"1:1\",\"1:1\"],\"nMrParent\":[\"engine__GetUser_Req\",\"engine__GetUser_Res\",\"engine__GetUser_Flt\"],\"elms\":[\"userId\",\"id\",\"name\",\"email\",\"accountNo\",\"balance\",\"referralId\",\"referredBy\"],\"eExtName\":[\"NewElement\",\"id\",\"name\",\"email\",\"accountNo\",\"balance\",\"referralId\",\"referredBy\"],\"eDataType\":[\"STRING\",\"INTEGER\",\"STRING\",\"STRING\",\"STRING\",\"NUMBER\",\"STRING\",\"STRING\"],\"eMinVal\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxVal\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxDec\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eLenType\":[\"F\",\"F\",\"F\",\"F\",\"F\",\"F\",\"F\",\"F\"],\"eMinLen\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxLen\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eArr\":[\"N\",\"N\",\"N\",\"N\",\"N\",\"N\",\"N\",\"N\"],\"ePattern\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eMand\":[\"N\",\"N\",\"N\",\"N\",\"N\",\"N\",\"N\",\"N\"],\"eRelNode\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"eRelElm\":[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]}','Y','NONE','Y','NONE');
+INSERT INTO TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION,AUTHRZ_REQ,CREATE_USER_ID,CREATE_TS,MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS ,AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,FMW_TXN_REQ,FMW_TXN_PAYLOAD_REQ) VALUES('engine__Login','engine','EXTERNAL','HTTP','NewInterface','Y','Admin',NOW(),'admin',NOW(),'admin',NOW(),'A','N','1','{\"name\":\"engine__Login\",\"type\":\"HTTP\",\"offline\":\"N\",\"session\":\"N\",\"correctReq\":\"N\",\"noOfReqNodes\":1,\"correctRes\":\"N\",\"noOfResNodes\":1,\"noOFaultNodes\":1,\"nodes\":[\"engine__Login_Req\",\"engine__Login_Res\",\"engine__Login_Flt\"],\"noOfNodeElms\":[2,0,0],\"nExtName\":[\"engine__Login_Req\",\"engine__Login_Res\",\"engine__Login_Flt\"],\"nMultiRec\":[\"N\",\"N\",\"N\"],\"nParent\":[\"\",\"\",\"\"],\"nParents\":[\"\",\"\",\"\"],\"nChilds\":[\"\",\"\",\"\"],\"nRelType\":[\"1:1\",\"1:1\",\"1:1\"],\"nMrParent\":[\"engine__Login_Req\",\"engine__Login_Res\",\"engine__Login_Flt\"],\"elms\":[\"email\",\"password\"],\"eExtName\":[\"NewElement\",\"NewElement\"],\"eDataType\":[\"STRING\",\"STRING\"],\"eMinVal\":[\"\",\"\"],\"eMaxVal\":[\"\",\"\"],\"eMaxDec\":[\"\",\"\"],\"eLenType\":[\"F\",\"F\"],\"eMinLen\":[\"\",\"\"],\"eMaxLen\":[\"\",\"\"],\"eArr\":[\"N\",\"N\"],\"ePattern\":[\"\",\"\"],\"eMand\":[\"N\",\"N\"],\"eRelNode\":[\"\",\"\"],\"eRelElm\":[\"\",\"\"]}','N','NONE','N','NONE');
+INSERT INTO TB_ASMI_INTF_MASTER  (INTERFACE_ID, APP_ID, CATEGORY, TYPE, DESCRIPTION,AUTHRZ_REQ,CREATE_USER_ID,CREATE_TS,MAKER_ID , MAKER_TS , CHECKER_ID , CHECKER_TS ,AUTH_STATUS,CAPTCHA_REQ,VERSION_NO,INTERFACE_DEF,TXN_LOG_REQ,TXN_LOG_PAYLOAD_REQ,FMW_TXN_REQ,FMW_TXN_PAYLOAD_REQ) VALUES('engine__Register','engine','EXTERNAL','HTTP','NewInterface','Y','Admin',NOW(),'admin',NOW(),'admin',NOW(),'A','N','1','{\"name\":\"engine__Register\",\"type\":\"HTTP\",\"offline\":\"N\",\"session\":\"N\",\"correctReq\":\"N\",\"noOfReqNodes\":1,\"correctRes\":\"N\",\"noOfResNodes\":1,\"noOFaultNodes\":1,\"nodes\":[\"engine__Register_Req\",\"engine__Register_Res\",\"engine__Register_Flt\"],\"noOfNodeElms\":[6,0,0],\"nExtName\":[\"engine__Register_Req\",\"engine__Register_Res\",\"engine__Register_Flt\"],\"nMultiRec\":[\"N\",\"N\",\"N\"],\"nParent\":[\"\",\"\",\"\"],\"nParents\":[\"\",\"\",\"\"],\"nChilds\":[\"\",\"\",\"\"],\"nRelType\":[\"1:1\",\"1:1\",\"1:1\"],\"nMrParent\":[\"engine__Register_Req\",\"engine__Register_Res\",\"engine__Register_Flt\"],\"elms\":[\"name\",\"email\",\"password\",\"accountNo\",\"balance\",\"referredBy\"],\"eExtName\":[\"NewElement\",\"NewElement\",\"NewElement\",\"NewElement\",\"NewElement\",\"NewElement\"],\"eDataType\":[\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\"],\"eMinVal\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxVal\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxDec\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eLenType\":[\"F\",\"F\",\"F\",\"F\",\"F\",\"F\"],\"eMinLen\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eMaxLen\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eArr\":[\"N\",\"N\",\"N\",\"N\",\"N\",\"N\"],\"ePattern\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eMand\":[\"N\",\"N\",\"N\",\"N\",\"N\",\"N\"],\"eRelNode\":[\"\",\"\",\"\",\"\",\"\",\"\"],\"eRelElm\":[\"\",\"\",\"\",\"\",\"\",\"\"]}','Y','NONE','Y','NONE');
+/* SMS Delete and Insert scripts */
+DELETE FROM TB_ASMI_ROLE_MASTER WHERE (APP_ID='engine'  AND ROLE_ID='admin');
+INSERT INTO TB_ASMI_ROLE_MASTER(ROLE_ID, APP_ID,ROLE_DESC,CREATE_USER_ID,CREATE_TS,VERSION_NO,INTERFACE_ALLOWED,SCREEN_ALLOWED,CONTROL_ALLOWED,AUTH_STATUS) VALUES('admin','engine','AdminiStration','Admin',NOW(),1,'A','A','A','A');
+
+/* Role-Screen Mapping */
+DELETE FROM TB_ASMI_ROLE_SCR WHERE (APP_ID='engine' AND SCREEN_ID='engine__CreateT' AND ROLE_ID='admin' );
+INSERT INTO TB_ASMI_ROLE_SCR(APP_ID, SCREEN_ID,ROLE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('engine','engine__CreateT','admin','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_ROLE_SCR WHERE (APP_ID='engine' AND SCREEN_ID='engine__Home' AND ROLE_ID='admin' );
+INSERT INTO TB_ASMI_ROLE_SCR(APP_ID, SCREEN_ID,ROLE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('engine','engine__Home','admin','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_ROLE_SCR WHERE (APP_ID='engine' AND SCREEN_ID='engine__Login' AND ROLE_ID='admin' );
+INSERT INTO TB_ASMI_ROLE_SCR(APP_ID, SCREEN_ID,ROLE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('engine','engine__Login','admin','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_ROLE_SCR WHERE (APP_ID='engine' AND SCREEN_ID='engine__Register' AND ROLE_ID='admin' );
+INSERT INTO TB_ASMI_ROLE_SCR(APP_ID, SCREEN_ID,ROLE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('engine','engine__Register','admin','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_ROLE_SCR WHERE (APP_ID='engine' AND SCREEN_ID='engine__Reward' AND ROLE_ID='admin' );
+INSERT INTO TB_ASMI_ROLE_SCR(APP_ID, SCREEN_ID,ROLE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('engine','engine__Reward','admin','Admin',NOW(),1);
+
+/* Role-Interface Mapping */
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='engine__CreateT' AND ROLE_ID='admin' );
+INSERT INTO TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('engine','admin','engine__CreateT','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='engine__GetGoal' AND ROLE_ID='admin' );
+INSERT INTO TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('engine','admin','engine__GetGoal','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='engine__GetReward' AND ROLE_ID='admin' );
+INSERT INTO TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('engine','admin','engine__GetReward','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='engine__GetUser' AND ROLE_ID='admin' );
+INSERT INTO TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('engine','admin','engine__GetUser','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='engine__Login' AND ROLE_ID='admin' );
+INSERT INTO TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('engine','admin','engine__Login','Admin',NOW(),1);
+
+DELETE FROM TB_ASMI_ROLE_INTF WHERE (APP_ID='engine' AND INTERFACE_ID='engine__Register' AND ROLE_ID='admin' );
+INSERT INTO TB_ASMI_ROLE_INTF(APP_ID, ROLE_ID,INTERFACE_ID,CREATE_USER_ID,CREATE_TS,VERSION_NO) VALUES('engine','admin','engine__Register','Admin',NOW(),1);
+

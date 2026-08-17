@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jboss-deployment-structure>
+	  <deployment>
+    <exclusions>
+        <module name="org.apache.log4j"/>
+		<module name="org.slf4j"/>
+		<module name="org.slf4j.impl"/>
+    </exclusions>
+	  <dependencies>
+<module export="true" name="org.bouncycastle" slot="main"/>
+<module export="true" name="com.iexceed.configuration"/>
+</dependencies>
+</deployment>
+	</jboss-deployment-structure>

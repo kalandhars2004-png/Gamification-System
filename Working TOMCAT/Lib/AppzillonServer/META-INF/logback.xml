@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration debug="false">
+	<!-- Stop output INFO at start -->
+	<statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+	<property name="loghome" value="D:\\MONTH-2\\Week-3\\Monday\\Monday-Test\\Log\\"/>
+
+	<appender class="ch.qos.logback.classic.sift.SiftingAppender" name="AppzillonServerLogFile">
+
+		<discriminator class="ch.qos.logback.classic.sift.MDCBasedDiscriminator">
+			<key>logRouter</key>
+			<defaultValue>unknown</defaultValue>
+		</discriminator>
+
+		<sift>
+			<appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="FILE-AppzillonServerLogFile">
+				<file>${loghome}/${logRouter}/MainLogFile.log</file>
+				<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+					<layout class="com.iexceed.appzillon.logging.MaskingPatternLayout">
+						<maskPattern>\"password\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"pwd\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"pin\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"oldPassword\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"newPassword\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"confirmPassword\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"hashKey1\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"hashKey2\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>(\d+\.\d+\.\d+\.\d+)</maskPattern>
+						<Pattern>%d %p %-40c{1.} [%X{APPID}] [%X{OSTYPE}] [%X{TXNREF}]
+							[%X{USERID}] %m%n</Pattern>
+					</layout>
+				</encoder>
+
+				<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+					<!-- rollover daily -->
+					<fileNamePattern>${loghome}/${logRouter}/%d{dd-MM-yyyy}-MainLogFile-%i.log.zip
+					</fileNamePattern>
+					<maxFileSize>4MB</maxFileSize>
+					<maxHistory>30</maxHistory>
+					<totalSizeCap>50GB</totalSizeCap>
+				</rollingPolicy>
+			</appender>
+		</sift>
+	</appender>
+
+	<appender class="ch.qos.logback.classic.sift.SiftingAppender" name="RoutingDeviceErrorLogFile">
+
+		<discriminator class="ch.qos.logback.classic.sift.MDCBasedDiscriminator">
+			<key>errorLogRouter</key>
+			<defaultValue>unknown</defaultValue>
+		</discriminator>
+
+		<sift>
+
+			<appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="FILE-RoutingDeviceErrorLogFile">
+				<file>${loghome}/${errorLogRouter}/DeviceErrorLogFile.log</file>
+				<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+					<layout class="com.iexceed.appzillon.logging.MaskingPatternLayout">
+						<maskPattern>\"password\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"pwd\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"pin\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"oldPassword\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"newPassword\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"confirmPassword\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"hashKey1\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"hashKey2\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>\"hashKey2\"\s*:\s*\"(.*?)\"</maskPattern>
+						<maskPattern>(\d+\.\d+\.\d+\.\d+)</maskPattern>
+						<Pattern>%d %p %-40c{1.} [%X{APPID}] [%X{OSTYPE}] [%X{TXNREF}]
+							[%X{USERID}] %m%n</Pattern>
+					</layout>
+				</encoder>
+
+				<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+					<!-- rollover daily -->
+					<fileNamePattern>${loghome}/${errorLogRouter}/%d{dd-MM-yyyy}-DeviceErrorLogFile-%i.log.zip
+					</fileNamePattern>
+					<maxFileSize>4MB</maxFileSize>
+					<maxHistory>30</maxHistory>
+					<totalSizeCap>50GB</totalSizeCap>
+				</rollingPolicy>
+			</appender>
+
+		</sift>
+	</appender>
+	
+	<Logger additivity="false" level="OFF" name="org.springframework">
+		<AppenderRef level="OFF" ref="AppzillonServerLogFile"/>
+	</Logger>
+	<Logger additivity="false" level="OFF" name="org.hibernate">
+		<AppenderRef level="OFF" ref="AppzillonServerLogFile"/>
+	</Logger>
+	<Logger additivity="false" level="OFF" name="org.jboss">
+		<AppenderRef level="OFF" ref="AppzillonServerLogFile"/>
+	</Logger>
+	<Logger additivity="false" level="OFF" name="org.apache">
+		<AppenderRef level="OFF" ref="AppzillonServerLogFile"/>
+	</Logger>
+
+
+	<Logger level="DEBUG" name="com.iexceed.appzillon.rest">
+		<AppenderRef level="DEBUG" ref="AppzillonServerLogFile"/>
+	</Logger>
+
+	<Logger level="ALL" name="com.iexceed.appzillon.errorLogging">
+		<AppenderRef level="ALL" ref="RoutingDeviceErrorLogFile"/>
+	</Logger>
+
+	<root level="DEBUG">
+		<appender-ref ref="AppzillonServerLogFile"/>
+	</root>
+
+</configuration>

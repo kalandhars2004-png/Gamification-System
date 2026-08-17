@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:camel="http://camel.apache.org/schema/spring" xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/util         http://www.springframework.org/schema/util/spring-util.xsd         http://www.springframework.org/schema/beans           http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring           http://camel.apache.org/schema/spring/camel-spring.xsd        http://activemq.apache.org/schema/core           http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+<camelContext xmlns="http://camel.apache.org/schema/spring" id="engine_appzillonframeworks">
+<endpoint id="engine__engine__CreateT" uri="http://localhost:3000/api/transactions/pay"/>
+<endpoint id="engine__engine__GetGoal" uri="http://localhost:3000/api/users/get-goals"/>
+<endpoint id="engine__engine__GetReward" uri="http://localhost:3000/api/users/get-rewards"/>
+<endpoint id="engine__engine__GetUser" uri="http://localhost:3000/api/users/get"/>
+<endpoint id="engine__engine__Login" uri="http://localhost:3000/api/users/login"/>
+<endpoint id="engine__engine__Register" uri="http://localhost:3000/api/users/register"/>
+</camelContext>
+
+<!-- Generated beans goes here -->
+
+<bean class="com.iexceed.appzillon.services.HttpService" id="engine_engine__CreateT_service" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.HttpServicesImpl" id="engine_engine__CreateT_impl" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.AddlServiceProcessorBeanImpl" id="engine_engine__CreateT_service_proc" scope="request"/>
+<bean class="com.iexceed.appzillon.intf.ExternalInterfaceDtls" id="engine_engine__CreateT_intf" scope="request">
+<property name="beanId" value="engine_engine__CreateT_impl"/>
+<property name="category" value="External"/>
+<property name="sessionReq" value="N"/>
+</bean>
+<bean class="com.iexceed.appzillon.services.HttpService" id="engine_engine__GetGoal_service" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.HttpServicesImpl" id="engine_engine__GetGoal_impl" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.AddlServiceProcessorBeanImpl" id="engine_engine__GetGoal_service_proc" scope="request"/>
+<bean class="com.iexceed.appzillon.intf.ExternalInterfaceDtls" id="engine_engine__GetGoal_intf" scope="request">
+<property name="beanId" value="engine_engine__GetGoal_impl"/>
+<property name="category" value="External"/>
+<property name="sessionReq" value="N"/>
+</bean>
+<bean class="com.iexceed.appzillon.services.HttpService" id="engine_engine__GetReward_service" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.HttpServicesImpl" id="engine_engine__GetReward_impl" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.AddlServiceProcessorBeanImpl" id="engine_engine__GetReward_service_proc" scope="request"/>
+<bean class="com.iexceed.appzillon.intf.ExternalInterfaceDtls" id="engine_engine__GetReward_intf" scope="request">
+<property name="beanId" value="engine_engine__GetReward_impl"/>
+<property name="category" value="External"/>
+<property name="sessionReq" value="N"/>
+</bean>
+<bean class="com.iexceed.appzillon.services.HttpService" id="engine_engine__GetUser_service" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.HttpServicesImpl" id="engine_engine__GetUser_impl" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.AddlServiceProcessorBeanImpl" id="engine_engine__GetUser_service_proc" scope="request"/>
+<bean class="com.iexceed.appzillon.intf.ExternalInterfaceDtls" id="engine_engine__GetUser_intf" scope="request">
+<property name="beanId" value="engine_engine__GetUser_impl"/>
+<property name="category" value="External"/>
+<property name="sessionReq" value="N"/>
+</bean>
+<bean class="com.iexceed.appzillon.services.HttpService" id="engine_engine__Login_service" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.HttpServicesImpl" id="engine_engine__Login_impl" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.AddlServiceProcessorBeanImpl" id="engine_engine__Login_service_proc" scope="request"/>
+<bean class="com.iexceed.appzillon.intf.ExternalInterfaceDtls" id="engine_engine__Login_intf" scope="request">
+<property name="beanId" value="engine_engine__Login_impl"/>
+<property name="category" value="External"/>
+<property name="sessionReq" value="N"/>
+</bean>
+<bean class="com.iexceed.appzillon.services.HttpService" id="engine_engine__Register_service" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.HttpServicesImpl" id="engine_engine__Register_impl" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.AddlServiceProcessorBeanImpl" id="engine_engine__Register_service_proc" scope="request"/>
+<bean class="com.iexceed.appzillon.intf.ExternalInterfaceDtls" id="engine_engine__Register_intf" scope="request">
+<property name="beanId" value="engine_engine__Register_impl"/>
+<property name="category" value="External"/>
+<property name="sessionReq" value="N"/>
+</bean>
+<bean class="com.iexceed.appzillon.services.MailService" id="engine_appzillonMailRequest_service" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.MailServicesImpl" id="engine_appzillonMailRequest_impl" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.AddlServiceProcessorBeanImpl" id="engine_appzillonMailRequest_service_proc" scope="request"/>
+<bean class="com.iexceed.appzillon.intf.ExternalInterfaceDtls" id="engine_appzillonMailRequest_intf">
+<property name="beanId" value="engine_appzillonMailRequest_impl"/>
+<property name="category" value="External"/>
+<property name="sessionReq" value="Y"/>
+</bean>
+<bean class="com.iexceed.appzillon.impl.TextMessagingServicesImpl" id="engine_sendSMSImpl" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.TranslationBeanImpl" id="engine_paramImpl" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.NLPImpl" id="engine_NLPImpl" scope="request"/>
+<bean class="com.iexceed.appzillon.impl.ConversationalUIImpl" id="engine_ConversationalUIImpl" scope="request"/>
+<bean class="com.iexceed.appzillon.dao.MailDetails" id="engine_appzillonMailRequest" scope="request">
+<property name="from" value=""/>
+<property name="password" value=""/>
+<property name="hostName" value=""/>
+<property name="portNumber" value=""/>
+<property name="userName" value=""/>
+<property name="protocol" value=""/>
+</bean>
+<bean class="com.iexceed.appzillon.dao.HttpDetails" id="engine_engine__CreateT" scope="request">
+<property name="callType" value="POST"/>
+<property name="responseType" value="JSON"/>
+<property name="requestType" value="JSON"/>
+<property name="payLoadType" value="application/json"/>
+<property name="headerNode" value=""/>
+<property name="headerAttributes" value=""/>
+<property name="SSLRequired" value="N"/>
+<property name="timeOut" value="0"/>
+</bean>
+<bean class="com.iexceed.appzillon.dao.HttpDetails" id="engine_engine__GetGoal" scope="request">
+<property name="callType" value="POST"/>
+<property name="responseType" value="JSON"/>
+<property name="requestType" value="JSON"/>
+<property name="payLoadType" value="application/json"/>
+<property name="headerNode" value=""/>
+<property name="headerAttributes" value=""/>
+<property name="SSLRequired" value="N"/>
+<property name="timeOut" value="0"/>
+</bean>
+<bean class="com.iexceed.appzillon.dao.HttpDetails" id="engine_engine__GetReward" scope="request">
+<property name="callType" value="POST"/>
+<property name="responseType" value="JSON"/>
+<property name="requestType" value="JSON"/>
+<property name="payLoadType" value="application/json"/>
+<property name="headerNode" value=""/>
+<property name="headerAttributes" value=""/>
+<property name="SSLRequired" value="N"/>
+<property name="timeOut" value="0"/>
+</bean>
+<bean class="com.iexceed.appzillon.dao.HttpDetails" id="engine_engine__GetUser" scope="request">
+<property name="callType" value="POST"/>
+<property name="responseType" value="JSON"/>
+<property name="requestType" value="JSON"/>
+<property name="payLoadType" value="application/json"/>
+<property name="headerNode" value=""/>
+<property name="headerAttributes" value=""/>
+<property name="SSLRequired" value="N"/>
+<property name="timeOut" value="0"/>
+</bean>
+<bean class="com.iexceed.appzillon.dao.HttpDetails" id="engine_engine__Login" scope="request">
+<property name="callType" value="POST"/>
+<property name="responseType" value="JSON"/>
+<property name="requestType" value="JSON"/>
+<property name="payLoadType" value="application/json"/>
+<property name="headerNode" value=""/>
+<property name="headerAttributes" value=""/>
+<property name="SSLRequired" value="N"/>
+<property name="timeOut" value="0"/>
+</bean>
+<bean class="com.iexceed.appzillon.dao.HttpDetails" id="engine_engine__Register" scope="request">
+<property name="callType" value="POST"/>
+<property name="responseType" value="JSON"/>
+<property name="requestType" value="JSON"/>
+<property name="payLoadType" value="application/json"/>
+<property name="headerNode" value=""/>
+<property name="headerAttributes" value=""/>
+<property name="SSLRequired" value="N"/>
+<property name="timeOut" value="0"/>
+</bean>
+</beans>
